@@ -6,7 +6,7 @@ class UI(Enum):
     label = 2
     textBox = 3
     
-class Sizes(Enum):
+class Size(Enum):
     small = (100, 25)
     medium = (100, 40)
     large = (150, 60)

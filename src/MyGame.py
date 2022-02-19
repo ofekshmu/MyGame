@@ -1,6 +1,7 @@
 from enum import Enum
 import pygame
-from Main import Windows
+import pygame_gui
+from src import Window
 from header.enum import UI
 
 class MyGame:
@@ -13,19 +14,13 @@ class MyGame:
         pygame.init()
         #init windows
         
-        self.windows = Enum('Windows', windows)
-        
+        self.windows = [Window(name) for name in windows]
+        self.active_events = '' #TODO
 
-    # def add(self, ui : UI,
-    #             window : Enum('Windows')
-    #             ):
-    #     """ add UI to screen
-    #     @ ui : enum of User interface to add
-    #     @ window : associated window 
-
-    #     """
-    #     pass
-
+    
+    def addWindow(self):
+        pass
+    
     def window(self, window):
         return self.windows[window]
 
@@ -46,11 +41,23 @@ class MyGame:
 
 
 
-    def switchWindows(self, windows : Enum('Windows')):
-        pass
+    def switchWindows(self, window : Enum('Windows')):
+        """
+        Hides all windows, other than @ window
+        @ window : window to show
+        """
+        for w in self.windows:
+            if w == window:
+                w.show()
+            else:
+                w.hide()
 
     def __EventHandler(self):
-        pass
+        for event in pygame.event.get():
+            for e in self.active_events:
+                if event.type == e:
+                    print("") #TODO execute function according
+
 
     def __applyChanges(self):
         pass
