@@ -1,7 +1,7 @@
 import pygame
 import pygame_gui
 
-from header.enum import Size
+from header.Constants import Size
 
 class Button:
 
@@ -13,8 +13,6 @@ class Button:
         self.location = location
         self.size = size
         self.text = text
-
-        self.events = {}
 
         self.object = None
 

@@ -1,44 +1,58 @@
-from enum import Enum
 import pygame
 import pygame_gui
-from src import Window
-from header.enum import UI
+from UI.button import Button
+
+from src.Window import Window
+from header.Constants import Windows, MainMenu,Size
 
 class MyGame:
     
-    def __init__(self, windows):
-        """ 
-        Gui initialize 
-        @ windows: a list of strings indicating window names
-        """
+    def __init__(self):
+
         pygame.init()
-        #init windows
+
+        # Define user interface for Window
+        dict = {MainMenu.Exit: Button(location = (0,0),
+                                      text = "",
+                                      size = Size.medium
+                                      ),
+                MainMenu.LogIn: Button(location = (0,0),
+                                      text = "",
+                                      size = Size.medium
+                                      )
+                }
+
+        # Build window and feed it with UI
+        self.windows[Windows.MainMenu] = Window(location = (0,0),
+                                                size = (500, 500),
+                                                color = (255,255,255),
+                                                user_interface = dict)
+
         
-        self.windows = {name : Window(name) for name in windows}
-        self.active_events = '' #TODO
 
-    
-    def window(self, window):
-        return self.windows[window]
+    def start(self):        
 
-            
-
-    def start(self):
-        
+        self.__sys_msg("MyGame Started succssesfully.")    
         self.running = True
 
         while self.running:
             
             self.__EventHandler()
-            self.__applyChanges()
-            
             pygame.display.flip()
         
-        pygame.quit()
+
+    def __EventHandler(self):
+        for event in pygame.event.get():
+            if event.type == pygame_gui.UI_BUTTON_PRESSED:
+                if event.ui_element == self.windows[Windows.MainMenu].get(MainMenu.Exit):
+                    self.__CallBack_MainMenuExit()
+                
+            if event.type == pygame.QUIT:
+                pygame.quit()
 
 
-
-    def switchWindows(self, window : Enum('Windows')):
+    
+    def __switchWindows(self, window : Windows):
         """
         Hides all windows, other than @ window
         @ window : window to show
@@ -48,13 +62,19 @@ class MyGame:
                 w.show()
             else:
                 w.hide()
+   
+    # ********************************************************/
+    #                       Call Backs                        /
+    # ********************************************************/
+    def __CallBack_MainMenuExit(self):
+        raise NotImplemented   
 
-    def __EventHandler(self):
-        for event in pygame.event.get():
-            for e in self.active_events:
-                if event.type == e:
-                    print("") #TODO execute function according
+    # ********************************************************/
+    #                       System Msg                        /
+    # ********************************************************/
+    def __sys_msg(self, msg):
+        print(f"\n\t\tMyGame: System Message\n{msg}\n")
 
 
-    def __applyChanges(self):
-        pass
+
+
