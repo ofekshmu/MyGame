@@ -20,8 +20,8 @@ class Button:
 
 
     def create(self, manager):
-        self.object = pygame_gui.elements.UIButton(relative_rect = pygame.Rect(self.location, self.size),
-                                             text = self.text,
+        self.object = pygame_gui.elements.UIButton(relative_rect = pygame.Rect(self.__location, self.__size),
+                                             text = self.__text,
                                              manager = manager)
         return self
 
@@ -35,3 +35,15 @@ class Button:
         """    
         self.object.set_text(text)
         return self
+
+    # ********************************************************/
+    #                       Attributes                        /
+    # ********************************************************/
+    def location(self, location):
+        self.__location = location
+    
+    def size(self, size):
+        self.__size = size
+    
+    def text(self, text):
+        self.__text = text

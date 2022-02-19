@@ -14,7 +14,8 @@ class Window:
         """
         self.surface = pygame.display.set_mode(size)
 
-    def addUI(self, ui : UI, callBack):
+    def UI(self, ui : UI):
+        #return the UI class
         pass
     
     def setLocation(self):

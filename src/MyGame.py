@@ -14,12 +14,9 @@ class MyGame:
         pygame.init()
         #init windows
         
-        self.windows = [Window(name) for name in windows]
+        self.windows = {name : Window(name) for name in windows}
         self.active_events = '' #TODO
 
-    
-    def addWindow(self):
-        pass
     
     def window(self, window):
         return self.windows[window]
